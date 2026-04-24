@@ -1,0 +1,17 @@
+[Unit]
+Description=StackChan bridge API and websocket server
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=stackchan
+Group=stackchan
+WorkingDirectory=/opt/stackchan-bridge/app
+EnvironmentFile=/etc/stackchan-bridge/stackchan-bridge.env
+ExecStart=/opt/stackchan-bridge/venv/bin/stackchan-bridge
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

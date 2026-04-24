@@ -1,0 +1,20 @@
+[Unit]
+Description=StackChan rover UART service for UNO Q
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=stackchan
+Group=stackchan
+SupplementaryGroups=dialout tty
+WorkingDirectory=/opt/stackchan-bridge/app
+EnvironmentFile=/etc/stackchan-bridge/stackchan-rover.env
+RuntimeDirectory=stackchan-bridge
+RuntimeDirectoryMode=0755
+ExecStart=/opt/stackchan-bridge/venv/bin/stackchan-rover-service serve --serial-device ${ROVER_SERIAL_DEVICE} --baudrate ${ROVER_BAUDRATE} --rpc-socket ${ROVER_RPC_SOCKET_PATH} --rpc-timeout-seconds ${ROVER_RPC_TIMEOUT_SECONDS} --admin-socket ${ROVER_ADMIN_SOCKET} --loop-interval-ms ${ROVER_LOOP_INTERVAL_MS} --observation-sequence ${ROVER_OBSERVATION_SEQUENCE}
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=multi-user.target

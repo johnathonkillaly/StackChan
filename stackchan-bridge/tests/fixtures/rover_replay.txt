@@ -1,0 +1,8 @@
+# Fake StackChan rover replay commands
+PING
+STATUS
+DRIVE 120 120 300
+STOP
+TURN -120 120 180
+STATUS
+
